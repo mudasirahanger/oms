@@ -133,9 +133,9 @@ class ProjectsController extends Controller
     public function adminCounts() {
 
         $data = [];
-        $data['projects_count'] = (int)Project::getTotalCounts('projects');
-        $data['employee_count'] = (int)Project::getTotalCounts('users');
-        $data['clients_count'] = (int)Project::getTotalCounts('client');
+        $data['projects_count'] = '0'; //(int)Project::getTotalCounts('projects');
+        $data['employee_count'] = '0';//(int)Project::getTotalCounts('users');
+        $data['clients_count'] = '0';//(int)Project::getTotalCounts('client');
         return view('admin.counts',$data);
     }
 
