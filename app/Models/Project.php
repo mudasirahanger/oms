@@ -182,10 +182,21 @@ class Project extends model
 
     public static function getProjectsByEmpID($id)
     {
-       $jsonid = (string)$id;
-        $projects = DB::table('projects')     
-           ->whereJsonContains('employee_ids',[$jsonid])
-           ->paginate(15); 
+       $empid = (int)$id;
+       $emp_id = DB::table('employees_to_projects')
+                            ->select('projects_id')
+                            ->where('employee_ids', '=', $empid)
+                            ->get()
+                            ->toArray();
+
+        for($i=0;$i<count($emp_id);$i++) {
+            $projects = DB::table('projects')
+                ->where('project_id', '=', $emp_id[$i]->projects_id)
+                ->paginate(15); 
+        }
+        // $projects = DB::table('projects')     
+        //    ->whereJsonContains('employee_ids',$jsonid)
+        //    ->paginate(15); 
         return $projects;
     }
 
