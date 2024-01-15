@@ -282,7 +282,7 @@ class Project extends model
          return $emp[0];
     }
 
-    public static function getTotalCounts($table) {
+    public  function getTotalCounts($table) {
 
       return $projectCount = DB::table($table)->count();
 
