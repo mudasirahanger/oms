@@ -122,6 +122,15 @@
                             </div>
                             <div class="row clearfix">
                             <div class="col-xs-3">
+                                    <h2 class="card-inside-title">Project Start Date</h2>
+                                    <div class="form-group">
+                                        <div class="form-line" id="bs_datepicker_container">
+                                            <input type="date" class="form-control" name="project_start_date" placeholder="Please choose a date...">
+                                        </div>
+                                    </div>
+                                </div>
+                           
+                            <div class="col-xs-3">
                                     <h2 class="card-inside-title">Project Delivery Date</h2>
                                     <div class="form-group">
                                         <div class="form-line" id="bs_datepicker_container">
@@ -129,6 +138,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-xs-3">
+                                    <h2 class="card-inside-title">Project Priority </h2>
+                                    <div class="form-group">
+                                        <div class="form-line" id="bs_datepicker_container">
+                                    <select name="project_priority" class="form-control show-tick">
+                                        <option value="1"> 1 - Low </option>
+                                        <option value="2"> 2 - Medium </option>
+                                        <option value="3"> 3 - High </option>
+                                    </select>
+                                    </div>
+                                    </div>
+                                </div>
+                                
                             </div>
                             
                             <div class="row clearfix">

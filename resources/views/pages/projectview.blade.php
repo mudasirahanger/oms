@@ -78,29 +78,27 @@
                                 </div>
                             </div>
                              @endif
-                            <!-- <h2 class="card-inside-title">Team Details</h2>
+                             <h2 class="card-inside-title">Team Details</h2>
                             <div class="row clearfix">
                                 <div class="col-sm-3">
                                     <p>
                                         Select Work Type
                                     </p>
-                                  
+                                    {{ \App\Models\Project::getProjectTypeByProjectID($project->project_id); }}
                                 </div>
                                 <div class="col-md-3">
                                     <p>
                                         Select Departments
                                     </p>
-                                    <select name="department_ids[]" class="form-control show-tick" multiple>
-                                    </select>
+                                    {{ \App\Models\Project::getDepartmentsByProjectID($project->project_id); }}
                                 </div>
                                 <div class="col-md-3">
                                     <p>
                                         Select Employees
-                                    </p>
-                                    <select name="employee_ids[]" class="form-control show-tick" multiple>
-                                    </select>
+                                    </p>                                   
+                                    {{ \App\Models\Project::getEmployeeByProjectID($project->project_id); }}
                                 </div>
-                            </div> -->
+                            </div>
 
                             {{ App\Http\Controllers\Pages\ProjectsController::history($project->project_id); }}
                             
@@ -116,6 +114,14 @@
                             </div>
                             <div class="row clearfix">
                             <div class="col-xs-3">
+                                    <h2 class="card-inside-title">Project Start Date</h2>
+                                    <div class="form-group">
+                                        <div class="form-line disabled">
+                                            <input type="text" class="form-control" name="project_start_date" placeholder="{{ $project->project_start_date }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3">
                                     <h2 class="card-inside-title">Project Delivery Date</h2>
                                     <div class="form-group">
                                         <div class="form-line disabled">
@@ -123,6 +129,16 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-xs-3">
+                                    <h2 class="card-inside-title">Project Priority </h2>
+                                    <div class="form-group">
+                                        <div class="form-line disabled">
+                                            <input type="text" class="form-control" name="project_priority" placeholder="{{ $project->project_priority }}" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             
                             <div class="row clearfix">

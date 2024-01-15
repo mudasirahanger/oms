@@ -24,7 +24,7 @@ class Project extends model
 
         $client_id =  Project::addClient($client_data);
 
-        $project = DB::table('projects')->insertGetId([
+        $projectId = DB::table('projects')->insertGetId([
             'project_name' => $data['project_name'],
             'project_status' => $data['project_status'],
             'project_desc' => $data['project_desc'],
@@ -33,19 +33,53 @@ class Project extends model
             'user_id' =>  $data['user_id'],
             'project_file' => '',
             'project_cost' => $data['project_cost'],
-            'project_type' => $data['project_type'],
-            'department_ids' => $data['department_ids'],
-            'employee_ids' => $data['employee_ids'],
+            'project_priority' => $data['project_priority'],
             'project_start_date' => $data['project_start_date'],
             'project_end_date' => $data['project_end_date'],
             'created_at' => now(),
-            'updated_at' => now(),
+            'updated_at' => now()
         ]);
-        if ($project) {
-            return $data['task_id'];
+        if ($projectId) {
+            return array('task_id' => $data['task_id'], 'project_id' => $projectId);
         }
     }
 
+    public static function AddProjectTypeToProjects($project_types,$projects_id)
+    {
+
+        foreach($project_types as $project_type) {
+            DB::table('project_type_to_projects')->insert([
+                'project_type_id' => $project_type,
+                'projects_id' => $projects_id,
+            ]);
+        }
+    
+    }
+
+    public static function AddDepartmentsToProjects($department_ids,$projects_id)
+    {
+
+        foreach($department_ids as $department_id) {
+            DB::table('departments_to_projects')->insert([
+                'department_ids' => $department_id,
+                'projects_id' => $projects_id,
+            ]);
+        }
+    
+    }
+
+    public static function AddEmployeesToProjects($employee_ids,$projects_id)
+    {
+
+        foreach($employee_ids as $employee_id) {
+            DB::table('employees_to_projects')->insert([
+                'employee_ids' => $employee_id,
+                'projects_id' => $projects_id,
+            ]);
+        }
+    
+    }
+    
 
     public static function UpdateProject($data) {
 
@@ -102,7 +136,7 @@ class Project extends model
     {
 
         $employee = DB::table('users')
-            ->where('role_id', '!=', 1)
+            ->where('role_id', '!=', '1')
             ->get()
             ->toArray();
 
@@ -167,28 +201,77 @@ class Project extends model
     }
 
 
-    public static function getEmployeeByID($ids)
+    public static function getEmployeeByProjectID($project_id)
     {
-
-        $emp_id = json_decode($ids, true);
-        $emps = '';
-        $i = 1;
-        foreach ($emp_id as $id) {
-            $status = DB::table('users')
+        $emp_id = DB::table('employees_to_projects')
+                            ->select('employee_ids')
+                            ->where('projects_id', '=', $project_id)
+                            ->get()
+                            ->toArray();
+        for($i=0;$i<count($emp_id);$i++) {
+            $users = DB::table('users')
                 ->select('name')
-                ->where('id', '=', $id)
+                ->where('id', '=', $emp_id[$i]->employee_ids)
                 ->get()
                 ->toArray();
                 
             if ($i == 1) {
-                echo  $emps = '<span class="label label-info">' .  $status[0]->name . ' </span>';
+                echo  $emps = '<span class="label label-info">' .  $users[0]->name . ' </span>';
             } else {
-                echo  $emps = '<span class="label label-default">' .  $status[0]->name . ' </span>';
+                echo  $emps = '<span class="label label-default">' .  $users[0]->name . ' </span>';
             }
-            $i++;
-        }
-        //   return $emps;
+         }
+
     }
+
+    public static function getDepartmentsByProjectID($project_id)
+    {
+        $dept_id = DB::table('departments_to_projects')
+                            ->select('department_ids')
+                            ->where('projects_id', '=', $project_id)
+                            ->get()
+                            ->toArray();
+
+        for($i=0;$i<count($dept_id);$i++) {
+            $users = DB::table('departments')
+                ->select('department_name')
+                ->where('department_id', '=', $dept_id[$i]->department_ids)
+                ->get()
+                ->toArray();
+                
+            if ($i == 1) {
+                echo  $emps = '<span class="label label-info">' .  $users[0]->department_name . ' </span>';
+            } else {
+                echo  $emps = '<span class="label label-default">' .  $users[0]->department_name . ' </span>';
+            }
+         }
+
+    }
+
+    public static function getProjectTypeByProjectID($project_id)
+    {
+        $projt_id = DB::table('project_type_to_projects')
+                            ->select('project_type_id')
+                            ->where('projects_id', '=', $project_id)
+                            ->get()
+                            ->toArray();
+
+        for($i=0;$i<count($projt_id);$i++) {
+            $users = DB::table('project_type')
+                ->select('name')
+                ->where('project_type_id', '=', $projt_id[$i]->project_type_id)
+                ->get()
+                ->toArray();
+                
+            if ($i == 1) {
+                echo  $emps = '<span class="label label-info">' .  $users[0]->name . ' </span>';
+            } else {
+                echo  $emps = '<span class="label label-default">' .  $users[0]->name . ' </span>';
+            }
+         }
+
+    }
+   
 
     public static function getEmployeeByEmpID($id)
     {

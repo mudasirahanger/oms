@@ -45,9 +45,10 @@ class ProjectsController extends Controller
             'client_mobile' => ['required', 'string'],
             'client_name' => ['required', 'string'],
             'client_address' => ['required', 'string'],
-            'project_type' => ['required'],
             'project_end_date' => ['required'],
-            'project_status' => ['required']
+            'project_start_date' => ['required'],
+            'project_status' => ['required'],
+            'project_priority' => ['required']
         ]);
         
           $data = [
@@ -62,17 +63,23 @@ class ProjectsController extends Controller
             'project_cost' => $request->project_cost,
             'task_id' => $taskId,
             'user_id' =>  Auth::user()->id,
-            'project_type' => $request->project_type,
-            'department_ids' => json_encode($request->department_ids),
-            'employee_ids' => json_encode($request->employee_ids),
+           // 'project_type' => $request->project_type,
+           // 'department_ids' => $request->department_ids,
+           // 'employee_ids' => $request->employee_ids,
             'project_desc' => $request->project_desc,
+            'project_priority' => $request->project_priority,
             'project_end_date' => Carbon::parse($request->project_end_date)->format('Y-m-d'),
-            'project_start_date' => Carbon::now(),
+            'project_start_date' => Carbon::parse($request->project_start_date)->format('Y-m-d'),
          ];
 
-          $project_id =  Project::Add($data);
+          $projects =  Project::Add($data);
+          
+          Project::AddProjectTypeToProjects($request->project_types,$projects['project_id']);
+          Project::AddDepartmentsToProjects($request->department_ids,$projects['project_id']);
+          Project::AddEmployeesToProjects($request->employee_ids,$projects['project_id']);
+
           $this->notify($data,'add');
-          return redirect('/addproject')->with('message', 'Project Added Successfully ! #'.$project_id);
+          return redirect('/addproject')->with('message', 'Project Added Successfully ! #'.$projects['task_id']);
 
     }
     
