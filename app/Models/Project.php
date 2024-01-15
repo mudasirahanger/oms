@@ -194,9 +194,6 @@ class Project extends model
                 ->where('project_id', '=', $emp_id[$i]->projects_id)
                 ->paginate(15); 
         }
-        // $projects = DB::table('projects')     
-        //    ->whereJsonContains('employee_ids',$jsonid)
-        //    ->paginate(15); 
         return $projects ?? '';
     }
 

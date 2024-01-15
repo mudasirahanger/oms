@@ -42,8 +42,9 @@
                                         @endif
                                     </tbody>
                                 </table>
-                                
-                                {{ $projects->links() }}
+                                @if($projects)
+                                        {{ $projects->links() }}
+                                        @endif
                             </div>
                         </div>
                     </div>
