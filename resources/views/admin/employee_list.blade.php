@@ -27,7 +27,6 @@
                                         <th align="left"> Name</th>
                                         <th align="left"> Phone</th>
                                         <th align="left"> Email</th>
-                                        <th align="left"> Dept</th>
                                         <th align="left">Action</th>
                                       </tr>
                                     </thead>
@@ -39,7 +38,6 @@
                                         <td> {{ $employee->name }} {{ $employee->lname }} </td>
                                         <td> {{ $employee->email }} </td>
                                         <td> {{ $employee->mobile }} </td>
-                                        <td> {{ \App\Models\Department::getDepartmentNameById($employee->department_id) }} </td>
                                         <td><i class="material-icons">delete</i></td>
                                       </tr>
                                       @endforeach
