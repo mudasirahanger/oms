@@ -46,4 +46,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function getUsername($userId) {
+        return \DB::table('users')->where('id', $userId)->first()->name;
+       }
 }

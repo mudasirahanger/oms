@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Pages;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Project;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,7 @@ class ProjectsController extends Controller
 
     public function save(Request $request)
     {
-        $taskId = random_int(1000000000, 9999999999);
+        $taskId = random_int(1000, 9999);
        
          $request->validate([
             'project_name' => ['required', 'string', 'max:255'],
@@ -65,7 +66,7 @@ class ProjectsController extends Controller
             'user_id' =>  Auth::user()->id,
            // 'project_type' => $request->project_type,
            // 'department_ids' => $request->department_ids,
-           // 'employee_ids' => $request->employee_ids,
+            'employeeids' => $request->employee_ids,
             'project_desc' => $request->project_desc,
             'project_priority' => $request->project_priority,
             'project_end_date' => Carbon::parse($request->project_end_date)->format('Y-m-d'),
@@ -171,16 +172,24 @@ class ProjectsController extends Controller
   		$textmsg['chat_id'] = '-1002092007860';
 
        
+
+       
       if($type == 'add') {
-        $msgFull = "<b> Hello Update !!</b> \n";
-        $msgFull .= "Project Added Successfully ! #Task ID ". $data['task_id'] ." \n";
-        $msgFull .= "Project Name : ". $data['project_name'] ." \n";
+        $msgFull = "<b> Hello Teammates 😀 !</b> \n";
+        $msgFull .= "New Project Added Successfully !  ✅ #TaskID *". $data['task_id'] ."* \n";
+        $msgFull .= "Project Name : *". $data['project_name'] ."* \n";
         $msgFull .= "Client Name : ". $data['client_name'] ." \n";
-        $msgFull .= "Employee IDs:  \n";
+        $msgFull .= "Project Priority : ". $data['project_priority'] ." \n";
+        $msgFull .= "Start Date ". $data['project_start_date'] ." \n";
         $msgFull .= "End Date ". $data['project_end_date'] ." \n";
+        $msgFull .= "Employees Working on this \n";
+        foreach($data['employeeids'] as $employeeids){
+            $employname = User::getUsername($employeeids);
+            $msgFull .= "@". $employname ." \n";
+        }
       } else {
-        $msgFull = "<b> Hello Update !!</b> \n";
-        $msgFull .= "Project Update Successfully ! #Task ID ". $data['task_id'] ." \n";
+        $msgFull = "<b> Update !!</b> \n";
+        $msgFull .= "Project Update Successfully ! ✅ #Task ID ". $data['task_id'] ." \n";
         $msgFull .= "Employee IDs:  \n";
       }  
 

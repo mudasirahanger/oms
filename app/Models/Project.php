@@ -164,6 +164,7 @@ class Project extends model
     public static function getProjects()
     {
         $projects = DB::table('projects')
+            ->orderByDesc('project_id')
             ->paginate(15);
 
         return $projects;

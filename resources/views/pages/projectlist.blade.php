@@ -23,6 +23,7 @@
                                             <th>#Task ID</th>
                                             <th>Project Name</th>
                                             <th>Status</th>
+                                            <th>Start Date</th>
                                             <th>End Date</th>
                                             <th>Action</th>
                                         </tr>
@@ -34,6 +35,7 @@
                                             <td>{{ $project->task_id }}</td>
                                             <td>{{ $project->project_name }}</td>
                                             <td><span class="label bg-green"> {{ \App\Models\Project::getProjectStatusById($project->project_status)  }}  </span></td>
+                                            <td>{{ \Carbon\Carbon::parse($project->project_start_date)->format('d/m/Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($project->project_end_date)->format('d/m/Y') }}</td>
                                             <td><a href="{{ url('/viewproject') }}/{{ $project->task_id }}" class="btn btn-info btn-circle waves-effect waves-circle waves-float">
                                     <i class="material-icons">search</i>

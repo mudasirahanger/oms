@@ -30,14 +30,15 @@
                         <span>Dashboard</span>
                     </a>
                 </li>
+                
+                @if(Auth::user()->role_id == 1)
                 <li class="@if (Route::currentRouteName() == 'addproject') active @endif">
                     <a href="{{ url('/addproject') }}">
                         <i class="material-icons">control_point</i>
                         <span>Add Project</span>
                     </a>
                 </li>
-                
-                @if(Auth::user()->role_id == 1)
+              
                 <li class="@if (Route::currentRouteName() == 'listproject') active @endif">
                     <a href="{{ url('/listproject') }}">
                         <i class="material-icons">event_note</i>
