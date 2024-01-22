@@ -8,6 +8,12 @@ Open Souce Office Management System v 1.0.6
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects,
 
+## Stack
+- php 7.4
+- mysql 
+- laravel 8.x
+- bootstrap v3.3.6
+
 ## Changelog v1.0.5
 - Click buttons on dashboard 
 - 4 digit task ID
