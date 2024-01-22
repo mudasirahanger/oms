@@ -34,6 +34,8 @@ Route::post('/updateproject', [ProjectsController::class, 'update'])->middleware
 Route::get('/adddepartment', [DepartmentsController::class, 'create'])->middleware(['auth'])->name('adddepartment');
 Route::get('/listdepartment', [DepartmentsController::class, 'list'])->middleware(['auth'])->name('listdepartment');
 Route::post('/savedepartment', [DepartmentsController::class, 'save'])->middleware(['auth'])->name('savedepartment');
+Route::post('/deldepartment', [DepartmentsController::class, 'delete'])->middleware(['auth'])->name('deldepartment');
+
 // Employees routes 
 Route::get('/listemployees', [EmployeesController::class, 'list'])->middleware(['auth'])->name('listemployees');
 // Client routes

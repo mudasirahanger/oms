@@ -50,7 +50,19 @@ class DepartmentsController extends Controller
          return redirect('/listdepartment')->with('message', 'Successfully inserted');
 
     }
+   
 
+    public function delete(Request $request) {
+
+        $request->validate([
+            'department_id' => ['required']
+        ]);
+    
+         $departments =  Department::deleteDepartmentNameById($request->department_id);
+
+         return redirect('/listdepartment')->with('message', 'Successfully Deleted');
+        
+    }
 
 
 

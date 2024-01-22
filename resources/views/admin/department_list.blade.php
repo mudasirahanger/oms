@@ -34,7 +34,11 @@
                                       <tr>
                                         <td> {{ $department->department_id }} </td>
                                         <td> {{ $department->department_name }} </td>
-                                        <td><i class="material-icons">delete</i></td>
+                                        <form action="{{ url('/deldepartment') }}" method="POST">
+                                          @csrf
+                                          <input type="hidden" name="department_id" value="{{ $department->department_id }}">
+                                        <td> <button type="submit" class="btn btn-danger"><i class="material-icons">delete</i> </button></td>
+                                          </form>
                                       </tr>
                                       @endforeach
                                       @endif

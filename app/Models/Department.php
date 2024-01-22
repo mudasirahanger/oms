@@ -40,4 +40,13 @@ class Department extends model {
         return $dpet[0]->department_name;
    }
 
+   public static function deleteDepartmentNameById($id){
+    $dpet = DB::table('departments')->where('department_id', $id)->delete();
+    if($dpet){
+      return true;
+    } else {
+      return false;
+    }
+}
+
 }
