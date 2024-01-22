@@ -10,11 +10,11 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 
 ## Changelog v1.0.5
 - Click buttons on dashboard 
-- 4 digit task 
-- Channel tag on notify 
+- 4 digit task ID
+- Channel tag employess on notify 
 - Show Porject start date end date in list
-- Del options for all in super admin
-- Profile should be update 
+- Del options for all list in super admin
+- Profile edit & update options
 - On going project status in progress
 - Multiple timelines
 

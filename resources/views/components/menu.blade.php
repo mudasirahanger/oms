@@ -77,11 +77,11 @@
         <!-- #Menu -->
         <!-- Footer -->
         <div class="legal">
-            <!-- <div class="copyright">
-                &copy; 2024 <a href="javascript:void(0);">Office Management System - OMS </a>.
-            </div> -->
+             <div class="copyright">
+                <b>Author: </b> {{ env('SOFT_AUTHOR') }}
+            </div> 
             <div class="version">
-                <b>Version: </b> 1.0.5
+                <b>Version: </b> {{ env('SOFT_VERSION') }}
             </div>
         </div>
         <!-- #Footer -->
