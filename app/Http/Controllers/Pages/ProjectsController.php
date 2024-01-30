@@ -141,6 +141,7 @@ class ProjectsController extends Controller
         $data['projects_count'] = (int)Project::getTotalCounts('projects');
         $data['employee_count'] = (int)Project::getTotalCounts('users');
         $data['clients_count'] = (int)Project::getTotalCounts('client');
+        $data['projects'] = Project::getProjects();
         return view('admin.counts',$data);
     }
 
@@ -179,22 +180,25 @@ class ProjectsController extends Controller
 
        
       if($type == 'add') {
-        $msgFull = "<b> Hello Teammates 😀 !</b> \n";
-        $msgFull .= "New Project Added Successfully !  ✅ #TaskID *". $data['task_id'] ."* \n";
-        $msgFull .= "Project Name : *". $data['project_name'] ."* \n";
+        $msgFull = "<b> Hello Teammates  !</b> \n";
+        $msgFull .= "New Project Added Successfully !  ✅ #TaskID ". $data['task_id'] ." \n";
+        $msgFull .= "Project Name : ". $data['project_name'] ." \n";
         $msgFull .= "Client Name : ". $data['client_name'] ." \n";
         $msgFull .= "Project Priority : ". $data['project_priority'] ." \n";
         $msgFull .= "Start Date ". $data['project_start_date'] ." \n";
         $msgFull .= "End Date ". $data['project_end_date'] ." \n";
-        $msgFull .= "Employees Working on this \n";
+        $msgFull .= "Employees working on this \n";
         foreach($data['employeeids'] as $employeeids){
             $employname = User::getUsername($employeeids);
             $msgFull .= "@". $employname ." \n";
         }
+        $msgFull .= "click here : https://oms.associatedmedia.org/viewproject/". $data['task_id'] ." \n";
       } else {
         $msgFull = "<b> Update !!</b> \n";
         $msgFull .= "Project Update Successfully ! ✅ #Task ID ". $data['task_id'] ." \n";
-        $msgFull .= "Employee IDs:  \n";
+       // $msgFull .= "Employee IDs:  \n";
+       $msgFull .= "click here : https://oms.associatedmedia.org/viewproject/". $data['task_id'] ." \n";
+
       }  
 
 
