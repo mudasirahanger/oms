@@ -17,30 +17,46 @@
                         </h2>
                     </div>
                     <div class="body">
-                        <form action="{{ route('saveproject') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('saveproject') }}" method="post" enctype="multipart/form-data" novalidate="novalidate">
                             @csrf
                             @if ($errors->any())
                             @foreach ($errors->all() as $error)
-                            <div class="alert alert-danger">
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                                 {{ $error }}
                             </div>
                             @endforeach
                             @endif
                             @if (session('message'))
-                            <div class="alert alert-success">{{ session('message') }}</div>
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                {{ session('message') }}</div>
                             @endif
                             <h2 class="card-inside-title">Project Name</h2>
                             <div class="row clearfix">
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" name="project_name" class="form-control"  placeholder="Name" />
+                                            <input type="text" name="project_name" class="form-control"  placeholder="Name" required="" aria-required="true" aria-invalid="true" />
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <h2 class="card-inside-title">Client Details</h2>
+                            <h2 class="card-inside-title">Project Details</h2>
                             <div class="row clearfix">
+                            <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <textarea rows="4"  name="project_desc" class="form-control no-resize" placeholder="Enter Project Details..."></textarea>
+                                        </div>
+                                    </div>
+                            </div>
+                            </div>
+                            <h2 class="card-inside-title">
+                            <a class="btn bg-blue waves-effect m-b-15" role="button" data-toggle="collapse" href="#collapseExampleClient" aria-expanded="true" aria-controls="collapseExample">
+                             Client Details  <i class="material-icons">expand_more</i>
+                            </a> </h2>
+                            <div class="row clearfix collapse" id="collapseExampleClient">
                                 <div class="col-sm-12">
 
                                     <div class="form-group">
@@ -110,16 +126,6 @@
                             </div>
 
                             
-                            <h2 class="card-inside-title">Project Details</h2>
-                            <div class="row clearfix">
-                            <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <textarea rows="4"  name="project_desc" class="form-control no-resize" placeholder="Enter Project Details..."></textarea>
-                                        </div>
-                                    </div>
-                            </div>
-                            </div>
                             <div class="row clearfix">
                             <div class="col-xs-3">
                                     <h2 class="card-inside-title">Project Start Date</h2>

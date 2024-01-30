@@ -42,26 +42,30 @@ class ProjectsController extends Controller
        
          $request->validate([
             'project_name' => ['required', 'string', 'max:255'],
-            'client_email' => ['required', 'string', 'email', 'max:255'],
-            'client_mobile' => ['required', 'string'],
-            'client_name' => ['required', 'string'],
-            'client_address' => ['required', 'string'],
+            'project_desc' => ['required'],
+            // 'client_email' => ['required', 'string', 'email', 'max:255'],
+            // 'client_mobile' => ['required', 'string'],
+            // 'client_name' => ['required', 'string'],
+            // 'client_address' => ['required', 'string'],
+            'employee_ids' => 'required',
+            'project_types' => 'required',
+            'department_ids' => 'required',
             'project_end_date' => ['required'],
             'project_start_date' => ['required'],
-            'project_status' => ['required'],
-            'project_priority' => ['required']
+            'project_status' => 'required',
+            'project_priority' => 'required'
         ]);
         
           $data = [
             'project_name' => $request->project_name,
             'project_status' => $request->project_status,
-            'project_desc' => $request->project_desc,
+            'project_desc' => $request->project_desc ?? '',
             'project_file' => '',
-            'client_mobile' => $request->client_mobile,
-            'client_email' => $request->project_name,
-            'client_name' => $request->client_name,
-            'client_address' => $request->client_address,
-            'project_cost' => $request->project_cost,
+            'client_mobile' => $request->client_mobile ?? '',
+            'client_email' => $request->project_name ?? '',
+            'client_name' => $request->client_name ?? '',
+            'client_address' => $request->client_address ?? '',
+            'project_cost' => $request->project_cost ?? '0.00',
             'task_id' => $taskId,
             'user_id' =>  Auth::user()->id,
            // 'project_type' => $request->project_type,
