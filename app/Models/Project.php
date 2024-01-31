@@ -315,4 +315,20 @@ class Project extends model
 
         return $client;
     }
+
+    public static function deleteProjectById($id){
+        $project = DB::table('projects')->where('project_id', $id)->delete();
+        $projecttotype = DB::table('project_type_to_projects')->where('projects_id', $id)->delete();
+        $projecttohist = DB::table('projects_history')->where('project_id', $id)->delete();
+       //  $projecttolog = DB::table('project_log')->where('project_id', $id)->delete();
+        $projecttodept = DB::table('departments_to_projects')->where('projects_id', $id)->delete();
+        $projecttoemp = DB::table('employees_to_projects')->where('projects_id', $id)->delete();
+
+        if($project){
+          return true;
+        } else {
+          return false;
+        }
+    }
+
 }

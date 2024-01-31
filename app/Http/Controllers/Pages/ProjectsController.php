@@ -170,6 +170,23 @@ class ProjectsController extends Controller
     }
 
 
+    public function delete(Request $request) {
+
+      $request->validate([
+          'project_id' => ['required']
+      ]);
+  
+       $projects =  Project::deleteProjectById($request->project_id);
+
+       if($projects) {
+       return redirect('/listproject')->with('message', 'Successfully Deleted');
+       } else {
+       return redirect('/listproject')->with('message', 'Project Cannot be Deleted !');   
+       }
+      
+  }
+
+
     private function notify($data,$type) {
         $textmsg = array();
   		$curl = curl_init();

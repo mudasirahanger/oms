@@ -16,6 +16,11 @@
                             <h2>PROJECTS</h2>
                         </div>
                         <div class="body">
+                            @if (session('message'))
+                                <div class="alert alert-success alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                {{ session('message') }}</div>
+                            @endif
                             <div class="table-responsive">
                                 <table class="table table-hover dashboard-task-infos">
                                     <thead>
@@ -25,7 +30,8 @@
                                             <th>Status</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
-                                            <th>Action</th>
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -39,7 +45,16 @@
                                             <td>{{ \Carbon\Carbon::parse($project->project_end_date)->format('d/m/Y') }}</td>
                                             <td><a href="{{ url('/viewproject') }}/{{ $project->task_id }}" class="btn btn-info btn-circle waves-effect waves-circle waves-float">
                                     <i class="material-icons">search</i>
-                                </button></td>
+                                    </button> </a></td>
+                                    <td>
+                                        @if(Auth::user()->role_id == 1)
+                                    <form action="{{ url('/delproject') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="project_id" value="{{ $project->project_id }}">
+                                       <button type="submit" class="btn btn-danger"><i class="material-icons">delete</i> </button>
+                                        </form>
+                                        @endif
+                                        </td>
                                         </tr>
                                         @endforeach
                                         @else 

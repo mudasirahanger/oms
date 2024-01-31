@@ -30,6 +30,8 @@ Route::get('/viewproject/{id}', [ProjectsController::class, 'view'])->middleware
 Route::get('/listproject', [ProjectsController::class, 'list'])->middleware(['auth'])->name('listproject');
 Route::post('/saveproject', [ProjectsController::class, 'save'])->middleware(['auth'])->name('saveproject');
 Route::post('/updateproject', [ProjectsController::class, 'update'])->middleware(['auth'])->name('updateproject');
+Route::post('/delproject', [ProjectsController::class, 'delete'])->middleware(['auth'])->name('delproject');
+
 // Department routes
 Route::get('/adddepartment', [DepartmentsController::class, 'create'])->middleware(['auth'])->name('adddepartment');
 Route::get('/listdepartment', [DepartmentsController::class, 'list'])->middleware(['auth'])->name('listdepartment');
