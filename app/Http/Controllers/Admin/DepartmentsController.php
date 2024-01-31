@@ -60,7 +60,11 @@ class DepartmentsController extends Controller
     
          $departments =  Department::deleteDepartmentNameById($request->department_id);
 
+         if($departments) {
          return redirect('/listdepartment')->with('message', 'Successfully Deleted');
+         } else {
+         return redirect('/listdepartment')->with('message', 'Department is Mapped with Project Cannot be Deleted !');   
+         }
         
     }
 
