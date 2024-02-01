@@ -11,9 +11,9 @@
     @foreach($project_history as $history)
     <tr>
       <td>{{ $history->updated_at  }}</td>
-      <td>{{ $history->comments  }}</td>
+      <td>{{ $history->comments  }}</td> 
       <td> {{ \App\Models\Project::getProjectStatusById($history->project_status)  }}  </td>
-      <td>{{ $history->user_id  }}</td>
+      <td> {{ \App\Models\Project::getEmployeeNameByEmpID($history->user_id)  }} </td>
     </tr>
     @endforeach
 </tbody>

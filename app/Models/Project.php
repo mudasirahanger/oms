@@ -291,6 +291,15 @@ class Project extends model
          return $emp[0];
     }
 
+    public static function getEmployeeNameByEmpID($id)
+    {
+            $emp = DB::table('users')
+                ->where('id', '=', $id)
+                ->get()
+                ->toArray();     
+         return $emp[0]->name;
+    }
+
     public static function getTotalCounts($table) {
 
       return $projectCount = DB::table($table)->count();
