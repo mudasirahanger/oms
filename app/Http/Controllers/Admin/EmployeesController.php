@@ -24,5 +24,21 @@ class EmployeesController extends Controller
          return view('admin.employee_list',$data);
     }
 
+    public function delete(Request $request) {
+
+        $request->validate([
+            'user_id' => ['required']
+        ]);
+    
+         $projects =  User::deleteUserById($request->user_id);
+  
+         if($projects) {
+         return redirect('/listemployees')->with('message', 'Successfully Deleted');
+         } else {
+         return redirect('/listemployees')->with('message', 'Employee Cannot be Deleted !');   
+         }
+        
+    }
+
 
 }

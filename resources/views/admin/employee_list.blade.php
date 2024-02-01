@@ -16,9 +16,12 @@
                             <h2>EMPLOYEES</h2>
                         </div>
                         <div class="body">
-                        @if (session('message'))
-                            <div class="alert alert-success">{{ session('message') }}</div>
-                            @endif
+                          @if (session('message'))
+                          <div class="alert alert-success alert-dismissible" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                          {{ session('message') }}</div>
+                      @endif
+                     
                             <div class="table-responsive">
                                 <table class="table table-hover dashboard-task-infos">
                                     <thead>
@@ -38,7 +41,15 @@
                                         <td> {{ $employee->name }} {{ $employee->lname }} </td>
                                         <td> {{ $employee->email }} </td>
                                         <td> {{ $employee->mobile }} </td>
-                                        <td><i class="material-icons">delete</i></td>
+                                        <td>
+                                          @if(Auth::user()->role_id == 1 && $employee->id != 1)
+                                          <form action="{{ url('/deleteEmployee') }}" method="POST">
+                                              @csrf
+                                              <input type="hidden" name="user_id" value="{{ $employee->id }}">
+                                             <button type="submit" class="btn btn-danger"><i class="material-icons">delete</i> </button>
+                                              </form>
+                                              @endif
+                                            </td>
                                       </tr>
                                       @endforeach
                                       @endif

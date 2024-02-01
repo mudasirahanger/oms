@@ -50,4 +50,20 @@ class User extends Authenticatable
     public static function getUsername($userId) {
         return \DB::table('users')->where('id', $userId)->first()->name;
        }
+
+    public static function deleteUserById($id) {     
+        $empProjects = \DB::table('employees_to_projects')
+                        ->where('employee_ids', $id)
+                        ->exists();
+            // If related projects exist, return false to prevent deletion
+        if ($empProjects) {
+            return false;
+        }
+        $emp = \DB::table('users')->where('id', $id)->delete();
+        if($emp){
+        return true;
+        } else {
+        return false;
+        }
+    }   
 }

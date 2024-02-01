@@ -40,6 +40,8 @@ Route::post('/deldepartment', [DepartmentsController::class, 'delete'])->middlew
 
 // Employees routes 
 Route::get('/listemployees', [EmployeesController::class, 'list'])->middleware(['auth'])->name('listemployees');
+Route::post('/deleteEmployee', [EmployeesController::class, 'delete'])->middleware(['auth'])->name('deleteEmployee');
+
 // Client routes
 Route::get('/listclients', [ProjectsController::class, 'clientList'])->middleware(['auth'])->name('listclients');
 Route::post('/deleteClient', [ProjectsController::class, 'deleteClient'])->middleware(['auth'])->name('deleteClient');
