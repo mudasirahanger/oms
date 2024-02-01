@@ -16,6 +16,11 @@
                             <h2>PROJECTS</h2>
                         </div>
                         <div class="body">
+                            @if (session('message'))
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            {{ session('message') }}</div>
+                        @endif
                             <div class="table-responsive">
                                 <table class="table table-hover dashboard-task-infos">
                                     <thead>
@@ -37,9 +42,14 @@
                                             <td>{{ $client->client_mobile }}</td>
                                             <td>{{ $client->client_email }}</td>
                                             <td>{{ $client->client_address }}</td>
-                                            <td><a href="#" class="btn btn-info btn-circle waves-effect waves-circle waves-float">
-                                    <i class="material-icons">search</i>
-                                </button></td>
+                                            <td>@if(Auth::user()->role_id == 1)
+                                                <form action="{{ url('/deleteClient') }}" method="POST">
+                                                    @csrf
+                                                    <input type="hidden" name="client_id" value="{{ $client->client_id }}">
+                                                   <button type="submit" class="btn btn-danger"><i class="material-icons">delete</i> </button>
+                                                    </form>
+                                                    @endif
+                                     </td>
                                         </tr>
                                         @endforeach
                                         @else 

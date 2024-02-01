@@ -325,6 +325,18 @@ class Project extends model
         return $client;
     }
 
+
+    public static function deleteClientById($id) {
+        
+        $client = DB::table('client')->where('client_id', $id)->delete();
+
+        if($client){
+            return true;
+            } else {
+            return false;
+            }
+    }
+
     public static function deleteProjectById($id){
         $project = DB::table('projects')->where('project_id', $id)->delete();
         $projecttotype = DB::table('project_type_to_projects')->where('projects_id', $id)->delete();

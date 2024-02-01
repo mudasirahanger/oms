@@ -62,7 +62,7 @@ class ProjectsController extends Controller
             'project_desc' => $request->project_desc ?? '',
             'project_file' => '',
             'client_mobile' => $request->client_mobile ?? '',
-            'client_email' => $request->project_name ?? '',
+            'client_email' => $request->client_email ?? '',
             'client_name' => $request->client_name ?? '',
             'client_address' => $request->client_address ?? '',
             'project_cost' => $request->project_cost ?? '0.00',
@@ -168,6 +168,22 @@ class ProjectsController extends Controller
       return view('pages.clientlist',$data);
 
     }
+
+    public function deleteClient(Request $request) {
+
+      $request->validate([
+          'client_id' => ['required']
+      ]);
+  
+       $clients =  Project::deleteClientById($request->client_id);
+
+       if($clients) {
+       return redirect('/listclients')->with('message', 'Successfully Deleted');
+       } else {
+       return redirect('/listclients')->with('message', 'Client Cannot be Deleted !');   
+       }
+      
+  }
 
 
     public function delete(Request $request) {

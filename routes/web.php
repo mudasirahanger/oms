@@ -42,5 +42,7 @@ Route::post('/deldepartment', [DepartmentsController::class, 'delete'])->middlew
 Route::get('/listemployees', [EmployeesController::class, 'list'])->middleware(['auth'])->name('listemployees');
 // Client routes
 Route::get('/listclients', [ProjectsController::class, 'clientList'])->middleware(['auth'])->name('listclients');
+Route::post('/deleteClient', [ProjectsController::class, 'deleteClient'])->middleware(['auth'])->name('deleteClient');
+
 // auth routes
 require __DIR__.'/auth.php';
