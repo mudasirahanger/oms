@@ -36,8 +36,13 @@ class Department extends model {
             ->where('department_id', '=', $id)
             ->get()
             ->toArray();
+
+            if(!empty($dpet)){
+              return $dpet[0]->department_name;
+            }
+
+            return false;
             
-        return $dpet[0]->department_name;
    }
 
    public static function deleteDepartmentNameById($id){

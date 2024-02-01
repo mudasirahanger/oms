@@ -27,9 +27,10 @@
                                     <thead>
                                       <tr>
                                         <th align="left">Employee ID</th>
-                                        <th align="left"> Name</th>
+                                        <th align="left">Full Name </th>
                                         <th align="left"> Phone</th>
                                         <th align="left"> Email</th>
+                                        <th align="left"> Department</th>
                                         <th align="left">Action</th>
                                       </tr>
                                     </thead>
@@ -37,11 +38,14 @@
                                     @if(!empty($employees) && $employees->count())
                                     @foreach($employees as $employee)
                                       <tr>
-                                        <td> {{ $employee->emp_id }} </td>
+                                        <td>#{{ $employee->emp_id }} </td>
                                         <td> {{ $employee->name }} {{ $employee->lname }} </td>
-                                        <td> {{ $employee->email }} </td>
                                         <td> {{ $employee->mobile }} </td>
-                                        <td>
+                                        <td> {{ $employee->email }} </td>
+                                        <td> @if(!empty($employee->department_id))
+                                          <span class="label bg-blue"> {{ \App\Models\Department::getDepartmentNameById($employee->department_id)  }}  </span></td>
+                                          @endif
+                                          <td>
                                           @if(Auth::user()->role_id == 1 && $employee->id != 1)
                                           <form action="{{ url('/deleteEmployee') }}" method="POST">
                                               @csrf

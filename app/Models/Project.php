@@ -177,7 +177,10 @@ class Project extends model
                 ->where('task_id', '=', $id)
                 ->get()
                 ->toArray();
-        return $projects[0];
+            if(!empty($projects[0])){
+            return $projects[0];
+            }
+                return false;
     }
    
 
@@ -206,7 +209,10 @@ class Project extends model
                 ->where('client_id', '=', $id)
                 ->get()
                 ->toArray();
-        return $client[0];
+                if(!empty($client[0])){
+                    return $client[0];
+                    }
+                return false;
     }
 
 
@@ -288,7 +294,11 @@ class Project extends model
                 ->where('id', '=', $id)
                 ->get()
                 ->toArray();     
-         return $emp[0];
+           
+                if(!empty($emp[0])){
+                    return $emp[0];
+                    }
+                return false;
     }
 
     public static function getEmployeeNameByEmpID($id)
@@ -297,7 +307,10 @@ class Project extends model
                 ->where('id', '=', $id)
                 ->get()
                 ->toArray();     
-         return $emp[0]->name;
+                if(!empty($emp[0]->name)){
+                    return $emp[0]->name;
+                    }
+                return false;
     }
 
     public static function getTotalCounts($table) {
@@ -327,7 +340,7 @@ class Project extends model
 
 
     public static function deleteClientById($id) {
-        
+
         $client = DB::table('client')->where('client_id', $id)->delete();
 
         if($client){
