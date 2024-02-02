@@ -121,7 +121,11 @@ class ProjectsController extends Controller
       if(isset($request->id)  && !empty($request->id)) {
         $taskId = $request->id;
         $project = Project::getProjectsByID($taskId);   
+        if(!empty($project->client_id)) {
         $client = Project::getClientsByID($project->client_id);
+        } else {
+        $client = '';
+        }
         $data['status_ids'] = Project::getProjectStatus();
         $data['project'] = $project;
         $data['client'] = $client;

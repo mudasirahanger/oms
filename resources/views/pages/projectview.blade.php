@@ -42,7 +42,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <h2 class="card-inside-title">Project Details</h2>
+                            <div class="row clearfix">
+                            <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="form-line disabled">
+                                            <textarea rows="4"  name="project_desc" class="form-control no-resize" placeholder="{{ $project->project_desc }}" disabled></textarea>
+                                        </div>
+                                    </div>
+                            </div>
+                            </div>
                             @if($user_id == 1) 
+                            @if(!empty($client))
                             <h2 class="card-inside-title">Client Details</h2>
                             <div class="row clearfix">
                                 <div class="col-sm-12">
@@ -78,6 +89,7 @@
                                 </div>
                             </div>
                              @endif
+                             @endif
                              <h2 class="card-inside-title">Team Details</h2>
                             <div class="row clearfix">
                                 <div class="col-sm-3">
@@ -98,20 +110,7 @@
                                     </p>                                   
                                     {{ \App\Models\Project::getEmployeeByProjectID($project->project_id); }}
                                 </div>
-                            </div>
-
-                            {{ App\Http\Controllers\Pages\ProjectsController::history($project->project_id); }}
-                            
-                            <h2 class="card-inside-title">Project Details</h2>
-                            <div class="row clearfix">
-                            <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <div class="form-line disabled">
-                                            <textarea rows="4"  name="project_desc" class="form-control no-resize" placeholder="{{ $project->project_desc }}" disabled></textarea>
-                                        </div>
-                                    </div>
-                            </div>
-                            </div>
+                            </div>                            
                             <div class="row clearfix">
                             <div class="col-xs-3">
                                     <h2 class="card-inside-title">Project Start Date</h2>
@@ -140,22 +139,34 @@
                                 </div>
 
                             </div>
-                            
+                            {{ App\Http\Controllers\Pages\ProjectsController::history($project->project_id); }}
+
                             <div class="row clearfix">
                             <div class="col-xs-3">
                             <p>
-                                <b>Project Status</b>
+                                <b>Main Project Status</b>
                                     </p>
-                                    <select name="project_status" class="form-control show-tick">
-                                        @foreach($status_ids as $status)
-                                        @if($status->status_id  == $project->project_status)
-                                        <option value="{{ $status->status_id }}" selected>{{ $status->status_name }}</option>
-                                        @else
-                                        <option value="{{ $status->status_id }}">{{ $status->status_name }}</option>
-                                        @endif
-                                        @endforeach
-                                    </select>
+                                    @foreach($status_ids as $status)
+                                    @if($status->status_id  == $project->project_status)
+                                    <p>
+                                    <span class="label label-success">{{ $status->status_name }}  </span> </p>
+                                    @endif
+                                   @endforeach
                                 </div>
+                                <div class="col-xs-3">
+                                    <p>
+                                        <b>Your Project Status</b>
+                                            </p>
+                                            <select name="project_status" class="form-control show-tick">
+                                                @foreach($status_ids as $status)
+                                                @if($status->status_id  == $project->project_status)
+                                                <option value="{{ $status->status_id }}" selected>{{ $status->status_name }}</option>
+                                                @else
+                                                <option value="{{ $status->status_id }}">{{ $status->status_name }}</option>
+                                                @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
                             </div>
 
 

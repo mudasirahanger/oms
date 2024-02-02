@@ -21,8 +21,11 @@ class Project extends model
             'client_email' => $data['client_email'],
             'client_address' => $data['client_address']
         ];
-
-        $client_id =  Project::addClient($client_data);
+        if(!empty($data['client_mobile'])) {
+          $client_id =  Project::addClient($client_data);
+        } else {
+          $client_id = '0';
+        }
 
         $projectId = DB::table('projects')->insertGetId([
             'project_name' => $data['project_name'],
@@ -83,10 +86,10 @@ class Project extends model
 
     public static function UpdateProject($data) {
 
-        DB::table('projects')
-            ->where('project_id', $data['project_id'])  // find your user by their email
-            ->limit(1)  // optional - to ensure only one record is updated.
-            ->update(array('project_status' => $data['project_status']));
+        // DB::table('projects')
+        //     ->where('project_id', $data['project_id'])  // find your user by their email
+        //     ->limit(1)  // optional - to ensure only one record is updated.
+        //     ->update(array('project_status' => $data['project_status']));
 
         DB::table('projects_history')->insert([
                 'comments' => $data['comments'],
@@ -158,7 +161,10 @@ class Project extends model
             ->where('status_id', '=', $id)
             ->get()
             ->toArray();
-        return $status[0]->status_name;
+            if(!empty($status[0]->status_name)){
+                return $status[0]->status_name;
+                }
+                    return false;
     }
 
     public static function getProjects()
@@ -321,18 +327,50 @@ class Project extends model
 
     public static function getHistory($project_id) {
    
-         return DB::table('projects_history')
+         $histry =  DB::table('projects_history')
                  ->where('project_id', '=', $project_id)
+                 ->orderByDesc('updated_at')
                  ->get()
                  ->toArray();
-
+        if(!empty($histry)) {
+            return $histry;
+        } else {
+            return false;
+        }
     }
+    
+    public static function getHistoryLatestStatus($project_id) {
+        $histry =  DB::table('projects_history')
+                ->where('project_id', '=', $project_id)
+                ->orderByDesc('updated_at')
+                ->get()
+                ->toArray();
+       if(!empty($histry[0])) {
+           return !empty(Project::getProjectStatusById($histry[0]->project_status)) ? Project::getProjectStatusById($histry[0]->project_status) : '';
+       } else {
+           return false;
+       }
+   }
 
+   public static function getHistoryLatestEmployee($project_id) {
+   
+    $histry =  DB::table('projects_history')
+            ->where('project_id', '=', $project_id)
+            ->orderByDesc('updated_at')
+            ->get()
+            ->toArray();
+   if(!empty($histry[0])) {
+       return !empty(Project::getEmployeeNameByEmpID($histry[0]->user_id)) ? Project::getEmployeeNameByEmpID($histry[0]->user_id) : '';
+   } else {
+       return false;
+   }
+}
 
 
     public static function getClients()
     {
                 $client = DB::table('client')
+                ->orderByDesc('client_id')
                 ->paginate(15);
 
         return $client;

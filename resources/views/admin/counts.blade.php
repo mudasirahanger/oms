@@ -86,7 +86,9 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Task</th>
-                                            <th>Status</th>
+                                            <th>Main Project Status</th>
+                                            <th>Employee Status</th>
+                                            <th>Employee Working</th>
                                             <th>Progress</th>
                                         </tr>
                                     </thead>
@@ -96,7 +98,10 @@
                                         <tr>
                                             <td> <a href="{{ url('/viewproject') }}/{{ $project->task_id }}"> #{{ $project->task_id }} </a></td>
                                             <td>{{ $project->project_name }} </td>
-                                            <td><span class="label bg-green">{{ \App\Models\Project::getProjectStatusById($project->project_status)  }} </span></td>
+                                            <td><span class="label bg-green"> {{ \App\Models\Project::getProjectStatusById($project->project_status)  }}  </span></td>
+                                            <td><span class="label bg-yellow">{{ \App\Models\Project::getHistoryLatestStatus($project->project_id)  }} </span>  </td>
+                                            <td><span class="label bg-blue">{{ \App\Models\Project::getHistoryLatestEmployee($project->project_id)  }} </span></td>
+                                          
                                             <td>
                                                 <div class="progress">
                                                     <div class="progress-bar bg-green" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" style="width: 62%"></div>

@@ -27,7 +27,9 @@
                                         <tr>
                                             <th>#Task ID</th>
                                             <th>Project Name</th>
-                                            <th>Status</th>
+                                            <th>Main Project Status</th>
+                                            <th>Employee Status</th>
+                                            <th>Employee Working</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
                                             <th></th>
@@ -41,6 +43,8 @@
                                             <td>{{ $project->task_id }}</td>
                                             <td>{{ $project->project_name }}</td>
                                             <td><span class="label bg-green"> {{ \App\Models\Project::getProjectStatusById($project->project_status)  }}  </span></td>
+                                            <td><span class="label bg-yellow">{{ \App\Models\Project::getHistoryLatestStatus($project->project_id)  }} </span>  </td>
+                                            <td><span class="label bg-blue">{{ \App\Models\Project::getHistoryLatestEmployee($project->project_id)  }} </span></td>
                                             <td>{{ \Carbon\Carbon::parse($project->project_start_date)->format('d/m/Y') }}</td>
                                             <td>{{ \Carbon\Carbon::parse($project->project_end_date)->format('d/m/Y') }}</td>
                                             <td><a href="{{ url('/viewproject') }}/{{ $project->task_id }}" class="btn btn-info btn-circle waves-effect waves-circle waves-float">
